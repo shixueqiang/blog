@@ -19,13 +19,13 @@ tags:
 
 1、quazip是zlib的封装库，下载源码后用QT打开，编译需要依赖zlib库，右键项目添加库选外部库就好。我添加后在.pro文件末尾会生成下面配置,注意编译64位的quazip，使用的zlib也必须是64位的
 <pre class="html">win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../zlib64/ -lzdll
-
+&nbsp;
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../zlib64/ -lzdll
-
+&nbsp;
 else:unix: LIBS += -L$$PWD/../zlib64/ -lzdll
-
+&nbsp;
 INCLUDEPATH += $$PWD/../zlib64
-
+&nbsp;
 DEPENDPATH += $$PWD/../zlib64</pre>
 &nbsp;
 
@@ -38,19 +38,19 @@ INCLUDEPATH是头文件路径
 1、使用时同样需要添加外部库zlib和quazip，字符集需要和dll一样，下面是一段解压缩代码
 <pre class="html">bool extract(const QString&amp; in_file_path, const QString&amp; out_file_path)
 {
-
+    &nbsp;
     QuaZip archive(in_file_path);
     if (!archive.open(QuaZip::mdUnzip))
         return false;
-
+    &nbsp;
     QString path = out_file_path;
     if (!path.endsWith("/") &amp;&amp; !out_file_path.endsWith("\\"))
         path += "/";
-
+    &nbsp;
     QDir dir(out_file_path);
     if (!dir.exists())
         dir.mkpath(out_file_path);
-
+    &nbsp;
     for( bool f = archive.goToFirstFile(); f; f = archive.goToNextFile() )
     {
         QString filePath = archive.getCurrentFileName();
@@ -58,7 +58,7 @@ INCLUDEPATH是头文件路径
         zFile.open(QIODevice::ReadOnly );
         QByteArray ba = zFile.readAll();
         zFile.close();
-
+        &nbsp;
         if (filePath.endsWith("/"))
         {
             dir.mkpath(filePath);

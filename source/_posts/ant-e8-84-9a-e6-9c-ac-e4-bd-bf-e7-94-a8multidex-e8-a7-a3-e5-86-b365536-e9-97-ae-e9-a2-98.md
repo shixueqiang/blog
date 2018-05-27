@@ -22,7 +22,7 @@ tags:
             &lt;!-- sets the primary input for dex. If a pre-dex task sets it to
                  something else this has no effect --&gt;
             &lt;property name="out.dex.input.absolute.dir" value="${out.classes.absolute.dir}" /&gt;
-
+            &nbsp;
             &lt;!-- set the secondary dx input: the project (and library) jar files
                  If a pre-dex task sets it to something else this has no effect --&gt;
             &lt;if&gt;
@@ -54,8 +54,8 @@ tags:
                     &lt;/path&gt;
                 &lt;/then&gt;
             	&lt;else&gt;
-            		&lt;filterlib </span></pre>
-<pre class="html"><span style="font-size: 14px;">				alljarpath="project.all.jars.path"
+            		&lt;filterlib </span>				
+                                alljarpath="project.all.jars.path"
 			   	plugjarconfig="${plug.jar.config}"
 			   	plugjarconfig2="${plug.jar.config2}"
 			    	plugjarpath="project.plug.path"
@@ -67,7 +67,7 @@ tags:
                    	 &lt;/path&gt;
                 &lt;/else&gt;
 	   &lt;/if&gt;
-
+            &nbsp;
             &lt;dex executable="${dx}"
                     output="${asset.absolute.dir}\plug.jar"
                   	dexedlibs="${out.dexed.absolute.dir}"
@@ -100,7 +100,7 @@ tags:
 	              &lt;path refid="project.dex.core.path" /&gt;
                 &lt;external-libs /&gt;
             &lt;/dex&gt;
-
+        &nbsp;
         &lt;/sequential&gt;
     &lt;/macrodef&gt;</span></pre>
 <span style="font-size: 18px;">其中separete和filterlib是两个自定义的task，作用都是从project.all.jars.path中过滤出事先定义好的第三方jar包的path，区别是separete是在代码经过混淆后执行，将混淆后的代码生成plug.jar，可以看到调用了三次dex。</span>
@@ -157,10 +157,9 @@ DexClassLoader加载从包dex，然后将pathClassLoader与dexClassLoader中的<
                 &lt;external-libs /&gt;
             &lt;/multidex&gt;
         &lt;/sequential&gt;
-    &lt;/macrodef&gt;</span></pre>
-<pre class="html"><span style="font-size: 14px;">&lt;target name="-maindexlist" depends="-set-release-mode, -compile, -post-compile, -obfuscate"&gt;
+    &lt;/macrodef&gt;</span><span style="font-size: 14px;">&lt;target name="-maindexlist" depends="-set-release-mode, -compile, -post-compile, -obfuscate"&gt;
         &lt;property name="out.dex.input.absolute.dir" value="${out.classes.absolute.dir}" /&gt;
-
+        &nbsp;
         &lt;!-- set the secondary dx input: the project (and library) jar files
              If a pre-dex task sets it to something else this has no effect --&gt;
         &lt;if&gt;

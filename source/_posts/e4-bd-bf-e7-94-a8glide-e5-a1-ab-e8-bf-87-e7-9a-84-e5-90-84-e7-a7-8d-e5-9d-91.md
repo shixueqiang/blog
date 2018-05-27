@@ -28,11 +28,11 @@ builder.asBitmap().imageDecoder(decoder)
 	private static final String ID = "XmlBitmapDecoder.com.chinamobile.rcs.contacts.glide";
 	private String id;
 	private final BitmapPool bitmapPool;
-
+	&nbsp;
 	public XmlBitmapDecoder(BitmapPool bitmapPool) {
 		this.bitmapPool = bitmapPool;
 	}
-
+	&nbsp;
 	@Override
 	public Resource&lt;Bitmap&gt; decode(InputStream is, int width, int height) throws IOException {
 		AvatarModel avatarModel = Utils.stream2Avatar(is);
@@ -40,7 +40,7 @@ builder.asBitmap().imageDecoder(decoder)
 		Bitmap bitmap = BitmapFactory.decodeByteArray(datas, 0, datas.length);
 		return BitmapResource.obtain(bitmap,bitmapPool);
 	}
-
+	&nbsp;
 	@Override
 	public String getId() {
 		if (this.id == null) {
@@ -48,7 +48,7 @@ builder.asBitmap().imageDecoder(decoder)
 		}
 		return this.id;
 	}
-
+	&nbsp;
 }</pre>
 坑四：
 
@@ -62,7 +62,7 @@ token验证，切圆角图，这个相对容易实现
 
 某些场景需要跳过缓存强制从网络拉取，但是需要先用缓存的头像当占位图，这点上glide没有开放现成的api，实现方式有点迂回：
 <pre class="html">DrawableTypeRequest&lt;MyGlideUrl&gt; builder = Glide.with(mContext).using(new StreamModelLoader&lt;MyGlideUrl&gt;() {
-
+			&nbsp;
 			@Override
 			public DataFetcher&lt;InputStream&gt; getResourceFetcher(final MyGlideUrl model, int arg1, int arg2) {
 				return new DataFetcher&lt;InputStream&gt;() {
@@ -71,20 +71,20 @@ token验证，切圆角图，这个相对容易实现
 						throw new IOException();
 						// do nothing
 					}
-
+					&nbsp;
 					@Override
 					public void cleanup() {
-
+						&nbsp;
 					}
-
+					&nbsp;
 					@Override
 					public String getId() {
 						return model.getCacheKey();
 					}
-
+					&nbsp;
 					@Override
 					public void cancel() {
-
+						&nbsp;
 					}
 				};
 			}
@@ -95,4 +95,4 @@ token验证，切圆角图，这个相对容易实现
 
 还是加载慢的问题，但是有时候从memory缓存里加载竟然也需要50，60ms，打开glide调试，发现从缓存加载只需要零点几毫秒，但是从我代码调用到真正发起请求竟然用了大部分时间，有人说是得到view宽高后才会发起请求，于是添加.override(w, h)，效果不明显。
 
-已经决定自己实现一套头像加载逻辑了，用第三方的实在是不够灵活
+自己手动改了改，增加了在缓存中删除单个key的方法

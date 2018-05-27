@@ -9,7 +9,7 @@ tags:
 ---
 
 <pre class="html">package utils
-
+&nbsp;
 import (
 	"bytes"
 	"crypto/aes"
@@ -18,18 +18,18 @@ import (
 	"fmt"
 	"log"
 )
-
+&nbsp;
 var commonIV = []byte{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f}
-
+&nbsp;
 var key = "32位key"
-
+&nbsp;
 func AesEncrypt(content string) string {
 	// 创建加密算法aes
 	c, err := aes.NewCipher([]byte(key))
 	if err != nil {
 		log.Fatalln("Error: NewCipher(%d bytes) = %s", len(key), err)
 	}
-
+&nbsp;
 	//加密字符串
 	cfb := cipher.NewCFBEncrypter(c, commonIV)
 	ciphertext := make([]byte, len(content))
@@ -38,7 +38,7 @@ func AesEncrypt(content string) string {
 	ciphertext = Base64Encode(ciphertext)
 	return string(ciphertext)
 }
-
+&nbsp;
 func AesDecrypt(content string) string {
 	text := make([]byte, len(content))
 	var err error
